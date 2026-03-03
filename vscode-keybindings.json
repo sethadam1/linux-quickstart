@@ -1,0 +1,169 @@
+[
+  {
+    "key": "shift+alt+down",
+    "command": "cursorEndSelect",
+    "when": "editorTextFocus && !editorHasSelection"
+  },
+  {
+    "key": "shift+alt+down",
+    "command": "cursorDownSelect",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "cursorHomeSelect",
+    "when": "editorTextFocus && !editorHasSelection"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "cursorUpSelect",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  // Cursor Movement
+  {
+    "key": "alt+up",
+    "command": "cursorHomeSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "left",
+    "command": "cursorLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+down",
+    "command": "cursorEndSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "right",
+    "command": "cursorRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "up",
+    "command": "cursorUp",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "down",
+    "command": "cursorDown",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+left",
+    "command": "cursorWordLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+right",
+    "command": "cursorWordRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+left",
+    "command": "cursorHome",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+right",
+    "command": "cursorEnd",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+up",
+    "command": "cursorTop",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+down",
+    "command": "cursorBottom",
+    "when": "textInputFocus"
+  },
+  // Selection Modifiers
+  {
+    "key": "shift+left",
+    "command": "cursorLeftSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+right",
+    "command": "cursorRightSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+up",
+    "command": "cursorUpSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+down",
+    "command": "cursorDownSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+shift+left",
+    "command": "cursorWordLeftSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+shift+right",
+    "command": "cursorWordRightSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+shift+left",
+    "command": "cursorHomeSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+shift+right",
+    "command": "cursorEndSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+shift+up",
+    "command": "cursorStartSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+shift+down",
+    "command": "cursorEndSelect",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+cmd+left",
+    "command": "commandId",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "backspace",
+    "command": "deleteLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "delete",
+    "command": "deleteRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+backspace",
+    "command": "deleteWordLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+delete",
+    "command": "deleteWordRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+backspace",
+    "command": "deleteLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+delete",
+    "command": "deleteAllRight",
+    "when": "textInputFocus"
+  }
+]
