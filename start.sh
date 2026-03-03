@@ -21,7 +21,8 @@ ${SUDO} dnf -y install \
   curl wget git unzip tar \
   ca-certificates gnupg2 \
   fwupd \
-  gnome-tweaks dconf-editor gnome-extensions-app
+  gnome-tweaks dconf-editor gnome-extensions-app \
+  bat fd-find ripgrep
 
 log "Enable RPM Fusion (free + nonfree)"
 FEDVER="$(rpm -E %fedora)"
@@ -47,13 +48,64 @@ ${SUDO} dnf -y install \
   libreoffice \
   thunderbird \
   mtp-tools gvfs-mtp \
-  flatpak
+  flatpak \
+  vivaldi-stable \
+  strawberry \
+  celluloid \
+  timeshift \
+  opensnitch \
+  gnome-boxes
+
+log "Install GNOME core apps and utilities"
+${SUDO} dnf -y install \
+  nautilus-python \
+  file-roller \
+  loupe \
+  evince \
+  flameshot \
+  gnome-system-monitor \
+  gnome-calculator \
+  gnome-text-editor \
+  gnome-font-viewer \
+  gnome-disk-utility \
+  gimp
+
+log "Install GNOME Shell extensions"
+${SUDO} dnf -y install \
+  gnome-shell-extension-dash-to-panel \
+  gnome-shell-extension-appindicator \
+  gnome-shell-extension-blur-my-shell \
+  gnome-shell-extension-user-theme \
+  gnome-shell-extension-caffeine
+
+log "Install GTK themes and fonts"
+${SUDO} dnf -y install \
+  adw-gtk3-theme \
+  google-noto-sans-fonts \
+  google-noto-serif-fonts \
+  google-noto-emoji-fonts \
+  jetbrains-mono-fonts \
+  fira-code-fonts \
+  mozilla-fira-sans-fonts \
+  mozilla-fira-mono-fonts
+
+# Install Inter font (not in Fedora repos by default)
+if [[ ! -d "${HOME}/.local/share/fonts/Inter" ]]; then
+  echo "  Installing Inter font..."
+  mkdir -p "${HOME}/.local/share/fonts/Inter"
+  curl -fsSL "https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip" -o /tmp/inter.zip
+  unzip -q /tmp/inter.zip -d /tmp/inter
+  cp /tmp/inter/Inter\ Desktop/*.ttf "${HOME}/.local/share/fonts/Inter/"
+  rm -rf /tmp/inter /tmp/inter.zip
+  fc-cache -f
+  echo "  ✓ Inter font installed"
+fi
 
 log "Enable and start tailscale"
 ${SUDO} systemctl enable --now tailscaled || true
 
-log "Enable syncthing for current user"
-systemctl --user enable --now syncthing.service || true
+# log "Enable syncthing for current user"
+# systemctl --user enable --now syncthing.service || true
 
 log "Add Flathub"
 ${SUDO} flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -74,7 +126,9 @@ flatpak install -y flathub \
   com.openai.ChatGPT \
   sh.cider.Cider \
   org.whatsapp.WhatsApp \
-  com.github.IsmaelMartinez.teams_for_linux || true
+  com.github.IsmaelMartinez.teams_for_linux \
+  com.discordapp.Discord \
+  com.mattjakeman.ExtensionManager || true
 
 log "Install Microsoft Edge (official Microsoft repo)"
 if ! rpm -q microsoft-edge-stable >/dev/null 2>&1; then
@@ -111,9 +165,30 @@ ${SUDO} snap install tabularis || true
 sh pretty-gnome.sh 
 sh install-fonts.sh
 
+log "Copy keybindings to VSCode and Kiro"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+KEYBINDINGS_FILE="${SCRIPT_DIR}/vscode-keybindings.json"
+
+if [[ -f "${KEYBINDINGS_FILE}" ]]; then
+  # VSCode keybindings
+  VSCODE_CONFIG_DIR="${HOME}/.config/Code/User"
+  mkdir -p "${VSCODE_CONFIG_DIR}"
+  cp "${KEYBINDINGS_FILE}" "${VSCODE_CONFIG_DIR}/keybindings.json"
+  echo "  ✓ Copied keybindings to VSCode"
+  
+  # Kiro keybindings
+  KIRO_CONFIG_DIR="${HOME}/.config/Kiro/User"
+  mkdir -p "${KIRO_CONFIG_DIR}"
+  cp "${KEYBINDINGS_FILE}" "${KIRO_CONFIG_DIR}/keybindings.json"
+  echo "  ✓ Copied keybindings to Kiro"
+else
+  echo "  ⚠ Warning: vscode-keybindings.json not found"
+fi
+
 log "Done"
 echo
 echo "Next:"
 echo "  - Reboot (helps snap + services settle)"
 echo "  - In GNOME Extensions, enable AppIndicator if you want tray icons"
+echo "  - In Extension Manager, install 'Just Perfection'"
 echo "  - Optional: alias wezterm='flatpak run org.wezfurlong.wezterm'"
