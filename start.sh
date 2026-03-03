@@ -46,7 +46,6 @@ ${SUDO} dnf -y install \
   kid3 \
   remmina \
   libreoffice \
-  thunderbird \
   mtp-tools gvfs-mtp \
   flatpak \
   vivaldi-stable \
