@@ -143,7 +143,41 @@ EOF
   ${SUDO} dnf -y install microsoft-edge-stable || true
 fi
 
-curl -fsSL https://cli.kiro.dev/install | bash
+sh pretty-gnome.sh 
+sh install-fonts.sh
+
+log "Install Kiro IDE (full version)"
+KIRO_DOWNLOAD_URL="https://www.dropbox.com/scl/fi/ehiym9xcibsmretqo2sul/kiro-ide-0.10.32-stable-linux-x64.tar.gz?rlkey=ysgln3ngn03yw069cr3u85doc&dl=1"
+KIRO_INSTALL_DIR="/opt/kiro-ide"
+
+if [[ ! -d "${KIRO_INSTALL_DIR}" ]]; then
+  echo "  Downloading Kiro IDE..."
+  curl -fsSL "${KIRO_DOWNLOAD_URL}" -o /tmp/kiro-ide.tar.gz
+  
+  echo "  Extracting Kiro IDE..."
+  ${SUDO} mkdir -p "${KIRO_INSTALL_DIR}"
+  ${SUDO} tar -xzf /tmp/kiro-ide.tar.gz -C "${KIRO_INSTALL_DIR}" --strip-components=1
+  rm /tmp/kiro-ide.tar.gz
+  
+  echo "  Creating desktop entry..."
+  ${SUDO} tee /usr/share/applications/kiro-ide.desktop >/dev/null <<EOF
+[Desktop Entry]
+Name=Kiro
+Comment=Agentic AI development IDE
+Exec=${KIRO_INSTALL_DIR}/bin/kiro
+Icon=${KIRO_INSTALL_DIR}/resources/app/out/media/code-icon.svg
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+EOF
+  
+  echo "  Creating symlink..."
+  ${SUDO} ln -sf "${KIRO_INSTALL_DIR}/bin/kiro" /usr/local/bin/kiro
+  
+  echo "  ✓ Kiro IDE installed to ${KIRO_INSTALL_DIR}"
+else
+  echo "  ✓ Kiro IDE already installed"
+fi
 
 #log "Install Homebrew (Linuxbrew)"
 # Official installer; installs to /home/linuxbrew/.linuxbrew on Linux.
@@ -160,9 +194,6 @@ ${SUDO} dnf -y install snapd || true
 ${SUDO} systemctl enable --now snapd.socket || true
 ${SUDO} ln -sf /var/lib/snapd/snap /snap || true
 ${SUDO} snap install tabularis || true
-
-sh pretty-gnome.sh 
-sh install-fonts.sh
 
 log "Copy keybindings to VSCode and Kiro"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
