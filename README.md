@@ -13,6 +13,11 @@ The goal is a polished, macOS-adjacent experience — without drifting away from
 
 ## 🚀 Installation
 
+```bash
+wget https://codeberg.org/sethadam1/linux-quickstart/archive/main.zip -O ~/quickstart.zip
+unzip ~/quickstart.zip
+cd linux-quickstart-main
+
 ### Fedora
 
 ```bash
