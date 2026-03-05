@@ -14,11 +14,12 @@ The goal is a polished, macOS-adjacent experience — without drifting away from
 ## 🚀 Installation
 
 ```bash
-wget https://codeberg.org/sethadam1/linux-quickstart/archive/main.zip -O ~/quickstart.zip
+wget https://github.com/sethadam1/linux-quickstart/archive/refs/heads/main.zip -O ~/quickstart.zip
 unzip ~/quickstart.zip
 cd linux-quickstart-main
+```
 
-### Fedora
+### For Fedora Workstation and other rpm-compatible distributions
 
 ```bash
 cd fedora
@@ -26,7 +27,7 @@ chmod +x *.sh
 ./start.sh
 ```
 
-### Ubuntu
+### For Ubuntu and Debian-based distributions
 
 ```bash
 cd ubuntu
