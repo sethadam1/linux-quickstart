@@ -23,7 +23,7 @@ ${SUDO} apt -y install \
   ca-certificates gnupg2 \
   fwupd \
   gnome-tweaks dconf-editor gnome-shell-extensions \
-  bat fd-find ripgrep
+  bat fd-find ripgrep || true
 
 log "Install system packages via apt"
 ${SUDO} apt -y install \
@@ -41,7 +41,7 @@ ${SUDO} apt -y install \
   strawberry \
   celluloid \
   timeshift \
-  gnome-boxes
+  gnome-boxes || true
 
 log "Install GNOME core apps and utilities"
 ${SUDO} apt -y install \
@@ -55,7 +55,7 @@ ${SUDO} apt -y install \
   gnome-text-editor \
   gnome-font-viewer \
   gnome-disk-utility \
-  gimp
+  gimp || true
 
 log "Install GNOME Shell extensions"
 ${SUDO} apt -y install \
@@ -69,7 +69,7 @@ ${SUDO} apt -y install \
   fonts-jetbrains-mono \
   fonts-firacode \
   fonts-fira-sans \
-  fonts-fira-mono
+  fonts-fira-mono || true
 
 # Install Inter font
 if [[ ! -d "${HOME}/.local/share/fonts/Inter" ]]; then
