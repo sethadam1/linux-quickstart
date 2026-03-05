@@ -61,7 +61,7 @@ log "Install GNOME Shell extensions"
 ${SUDO} apt -y install \
   gnome-shell-extension-dash-to-panel \
   gnome-shell-extension-appindicator \
-  gnome-shell-extension-caffeine
+  gnome-shell-extension-caffeine || true
 
 log "Install GTK themes and fonts"
 ${SUDO} apt -y install \
@@ -98,7 +98,6 @@ log "Install Flatpaks (GNOME-first where possible)"
 flatpak install -y flathub \
   dev.geopjr.Tuba \
   org.wezfurlong.wezterm \
-  com._1password.1Password \
   com.slack.Slack \
   us.zoom.Zoom \
   md.obsidian.Obsidian \
@@ -111,6 +110,9 @@ flatpak install -y flathub \
   com.github.IsmaelMartinez.teams_for_linux \
   com.discordapp.Discord \
   com.mattjakeman.ExtensionManager || true
+
+# Install 1Password separately due to package name issues
+flatpak install -y flathub com._1password.1Password || true
 
 log "Install Microsoft Edge"
 if ! command -v microsoft-edge >/dev/null 2>&1; then
