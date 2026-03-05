@@ -59,13 +59,11 @@ ${SUDO} apt -y install \
 
 log "Install GNOME Shell extensions"
 ${SUDO} apt -y install \
-  gnome-shell-extension-dash-to-panel \
   gnome-shell-extension-appindicator \
   gnome-shell-extension-caffeine || true
 
 log "Install GTK themes and fonts"
 ${SUDO} apt -y install \
-  adwaita-icon-theme-full \
   fonts-noto \
   fonts-noto-color-emoji \
   fonts-jetbrains-mono \
